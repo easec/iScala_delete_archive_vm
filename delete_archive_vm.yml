@@ -61,5 +61,6 @@ stages:
          inlineScript: 
           $Env:AZCOPY_AUTO_LOGIN_TYPE="MSI"
           $Env:AZCOPY_MSI_CLIENT_ID="$(clientId)"
+          azcopy login status 
           az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --auth-mode login
           az storage container delete --account-name "$(storageAccount)" --auth-mode login --name "$(containerName)"
