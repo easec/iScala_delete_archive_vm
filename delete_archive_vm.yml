@@ -56,7 +56,7 @@ stages:
      - task: AzureCLI@2
        inputs:
          azureSubscription: 'connection_snapshottestsa'
-         scriptType: bash
+         scriptType: pscore
          scriptLocation: inlineScript
          inlineScript: 
           $Env:AZCOPY_AUTO_LOGIN_TYPE="MSI"
