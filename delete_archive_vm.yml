@@ -59,5 +59,7 @@ stages:
          scriptType: pscore
          scriptLocation: inlineScript
          inlineScript: 
-          az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --sas-token "$(token)";
-          az storage container delete --account-name "$(storageAccount)" --sas-token "$(tokenSA)" --name "$(containerName)" 
+          $Env:AZCOPY_AUTO_LOGIN_TYPE="MSI"
+          $Env:AZCOPY_MSI_CLIENT_ID="$(clientId)"
+          az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --auth-mode login;
+          az storage container delete --account-name "$(storageAccount)" --auth-mode login --name "$(containerName)"
