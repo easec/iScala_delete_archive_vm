@@ -15,7 +15,7 @@
 # - containerName                : Name for container.
 # - storageAccount               : Name for Storage account,
 
-# This pipeline also expects an Azure (Resource Manager) service connection in Azure DevOps with the name 'AzureServiceConnection'.
+# This pipeline also expects an Azure (Resource Manager) service connection in Azure DevOps with the name 'connection_snapshot-rg' and 'connection_snapshottestsa'.
 
 
 trigger: none
