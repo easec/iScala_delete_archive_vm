@@ -1,19 +1,7 @@
-# This pipeline will delete all resources in Resource Group defined in the variable resourceGroupName.
+# This pipeline will delete all resources for the archive solution, including virtual machines, and container with blobs.
 
 #
-# The following variables need to be provided to the pipeline:
-# - resourceGroupName            : name for the Resource Group where the vm will be created.
-# - virtualMachineName           : name for the virtual machine.
-# - vmNIC                        : Name for NIC.
-# - vmNSG                        : Name for NSG.
-# - vmVNET                        : Name for VNET
-# - osDiskName                   : Name for Managed Disk containing the OS.
-# - dataDiskName                 : Name for Managed Disk containing the data.
-# - subecriptionId               : ID for subscription.
-# - token                        : Token for container (snapshot). Secret
-# - tokenSA                      : Token for Storage account. Secret
-# - containerName                : Name for container.
-# - storageAccount               : Name for Storage account,
+#
 
 # This pipeline also expects an Azure (Resource Manager) service connection in Azure DevOps with the name 'connection_snapshot-rg' and 'connection_snapshottestsa'.
 
@@ -25,16 +13,7 @@ pool:
   name: easec-pool
   
 variables:
-  resourceGroupName: "snapshot-rg"
-  virtualMachineName: "easec-vm"
-  vmNIC: "easec-vmVMNic"
-  vmNSG: "easec-vmNSG"
-  vmVNET: "easec-vmVNET"
-  osDiskName: "easec-vm_OsDisk_1_man"
-  dataDiskName: "easec-vm_DataDisk_1_man"
-  subscriptionId: "0ac447d7-fbc3-4d3d-84d4-37bb9a71e089"
-  storageAccount: "snapshottestsa"
-  containerName: "snapshot"
+- group: variable_iScaleArchive
 
 stages:
 - stage: Delete_vm
