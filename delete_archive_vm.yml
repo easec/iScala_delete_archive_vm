@@ -43,7 +43,7 @@ stages:
           az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --auth-mode login
           az storage container delete --account-name "$(storageAccount)" --auth-mode login --name "$(containerName)"
 
-- stage: stop_logic_app
+- stage: Disable_logic_app
   jobs:
   - job:
     steps:
@@ -53,4 +53,4 @@ stages:
        azurePowerShellVersion: "LatestVersion"
        scriptType: "InlineScript"
        Inline: |
-        Stop-AzLogicAppRun -ResourceGroupName "$(resourceGroupResources)" -Name "$(logicAppName)"
+        Set-AzLogicApp -ResourceGroupName "$(resourceGroupResources)" -Name "$(logicAppName)" -State "Disabled"
