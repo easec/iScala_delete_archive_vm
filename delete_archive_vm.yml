@@ -22,9 +22,9 @@ stages:
     steps:
      - task: AzureCLI@2
        inputs:
-         azureSubscription: 'connection_snapshot-rg'
-         scriptType: pscore
-         scriptLocation: inlineScript
+         azureSubscription: "connection_snapshot-rg"
+         scriptType: "pscore"
+         scriptLocation: "inlineScript"
          inlineScript: |
           az group delete --name "$(resourceGroupName)" --force-deletion-types Microsoft.Compute/virtualMachines --no-wait --yes
 
@@ -34,11 +34,23 @@ stages:
     steps:
      - task: AzureCLI@2
        inputs:
-         azureSubscription: 'connection_snapshottestsa'
-         scriptType: pscore
-         scriptLocation: inlineScript
+         azureSubscription: "connection_snapshottestsa"
+         scriptType: "pscore"
+         scriptLocation: "inlineScript"
          inlineScript: |
           $Env:AZCOPY_AUTO_LOGIN_TYPE="MSI"
           $Env:AZCOPY_MSI_CLIENT_ID="$(clientId)"
           az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --auth-mode login
           az storage container delete --account-name "$(storageAccount)" --auth-mode login --name "$(containerName)"
+
+- stage: stop_logic_app
+  jobs:
+  - job:
+    steps:
+    - task: AzurePowerShell@5
+      inputs:
+       azureSubscription: "connection_subscription"
+       azurePowerShellVersion: "LatestVersion"
+       scriptType: "InlineScript"
+       Inline: |
+        Stop-AzLogicApp -ResourceGroupName "$(resourceGroupResources)" -Name "$(logicAppName)" -TriggerName "$(triggerName)"
