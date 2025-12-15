@@ -16,7 +16,7 @@ variables:
 - group: variable_iScaleArchive
 
 stages:
-- stage: Delete_vm
+- stage: delete_vm
   jobs:
   - job:
     steps:
@@ -28,7 +28,7 @@ stages:
          inlineScript: |
           az group delete --name "$(resourceGroupName)" --force-deletion-types Microsoft.Compute/virtualMachines --no-wait --yes
 
-- stage: Delete_blobs_and_container
+- stage: delete_blobs_and_container
   jobs:
   - job:
     steps:
@@ -43,7 +43,7 @@ stages:
           az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --auth-mode login
           az storage container delete --account-name "$(storageAccount)" --auth-mode login --name "$(containerName)"
 
-- stage: Disable_logic_app
+- stage: disable_logic_app
   jobs:
   - job:
     steps:
