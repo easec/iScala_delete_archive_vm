@@ -53,4 +53,4 @@ stages:
        azurePowerShellVersion: "LatestVersion"
        scriptType: "InlineScript"
        Inline: |
-        Stop-AzLogicAppRun -ResourceGroupName "$(resourceGroupResources)" -Name "$(logicAppName)" -TriggerName "$(triggerName)"
+        Stop-AzLogicAppRun -ResourceGroupName "$(resourceGroupResources)" -Name "$(logicAppName)"
